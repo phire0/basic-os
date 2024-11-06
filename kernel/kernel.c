@@ -1,8 +1,13 @@
+/**
+ * kernel.c
+ * Basic Operating System, Primary Kernel Functions
+ */
+
+/**
+ * KERNEL ENTRY POINT
+ */
 void kernel_entry()
 {
-    // Get the VGA Video Memory Base Address
-    char* video_memory = (char*) 0xB8000;
-
-    // Replace the first character with 'X'
-    *video_memory = 'X';
+    volatile unsigned char *vga_base_address = (unsigned char*) 0xB8000;
+    *vga_base_address = 'X';
 }
