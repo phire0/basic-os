@@ -3,40 +3,30 @@
  * Basic Operating System, Primary Kernel Functions
  */
 
-#include "../drivers/ports.h"
+#include "../drivers/screen.h"
+
+void print_test();
 
 /**
  * KERNEL ENTRY POINT
  */
-void kernel_entry()
+void kernel_entry(void)
 {
-    /**
-     * Screen cursor position:
-     * ask VGA control register (0x3D4) for bytes
-     * 14 = high byte of cursor
-     * 15 = low byte of cursor
-     */
+    print_test();
+}
 
-    // Requesting byte 14 (high byte of cursor position)
-    write_byte_to_port(0x3D4, 14);
-
-    // Data will be stored in VGA data register 0x3D5
-    int cursorPosition = read_byte_from_port(0x3D5);
-
-    // Get the high byte
-    cursorPosition = cursorPosition << 8;
-
-    // Request byte 15 (low byte of cursor position)
-    write_byte_to_port(0x3D4, 15);
-
-    // Data will be stored in VGA data register (0x3D5)
-    cursorPosition += read_byte_from_port(0x3D5);
-
-    // VGA 'cells' considt of the character and its control data
-    // e.g. 'white on black background', 'red text on white background', etc
-    int vgaOffset = cursorPosition * 2;
-
-    volatile unsigned char *vgaBaseAddress = (char*) 0xB8000;
-    vgaBaseAddress[vgaOffset] = 'X';
-    vgaBaseAddress[vgaOffset+1] = 0x0F;
+void print_test()
+{
+    clear_screen();
+    kprint("Top Left Text");
+    kprint_at("Top Right Text", 66, 0, 0);
+    kprint_at("This contains a\nline break!", 30, 5, 0);
+    kprint_at("What happens when we run out of space?", 45, 24, 0);
+    kprint_at("Hello, World! :)", 30, 10, kprint_attr(COLOUR_LIGHT_RED, COLOUR_BLACK));
+    kprint_at("Hello, World! :)", 30, 11, kprint_attr(COLOUR_YELLOW, COLOUR_BLACK));
+    kprint_at("Hello, World! :)", 30, 12, kprint_attr(COLOUR_LIGHT_YELLOW, COLOUR_BLACK));
+    kprint_at("Hello, World! :)", 30, 13, kprint_attr(COLOUR_LIGHT_GREEN, COLOUR_BLACK));
+    kprint_at("Hello, World! :)", 30, 14, kprint_attr(COLOUR_LIGHT_AQUA, COLOUR_BLACK));
+    kprint_at("Hello, World! :)", 30, 15, kprint_attr(COLOUR_LIGHT_BLUE, COLOUR_BLACK));
+    kprint_at("Hello, World! :)", 30, 16, kprint_attr(COLOUR_LIGHT_PURPLE, COLOUR_BLACK));
 }
