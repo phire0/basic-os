@@ -24,4 +24,4 @@ initialise_protected_mode:
         mov ebp, 0x90000                        ; set stack to top of free space
         mov esp, ebp                            ; point esp to ebp
 
-        call begin_protected_mode               ; protected mode instruction in boot.asm
+        call begin_protected_mode               ; protected mode entry point in boot.asm
