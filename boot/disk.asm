@@ -36,17 +36,17 @@ disk_load:
 
 disk_error:
         mov bx, STR_DISK_ERROR                  ; load disk error message into bx
-        call rm_print                              ; call print
+        call rm_print                           ; call print
         call rm_print_nl
         mov bx, STR_ERROR_CODE_PREFIX
         call rm_print
         mov dh, ah                              ; load error code into dh
-        call rm_print_hex                          ; print error code
+        call rm_print_hex                       ; print error code
         jmp boot_disk_done                      ; done
 
 sector_error:
         mov bx, STR_SECTOR_ERROR                ; load sector error message into bx
-        call rm_print                              ; call print
+        call rm_print                           ; call print
         call rm_print_nl
         jmp boot_disk_done                      ; done
 
