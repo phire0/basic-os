@@ -4,18 +4,33 @@
  */
 
 #include "include/stdutils.h"
+#include "include/stdbool.h"
 
+// Private internal functions
 void reverse(char *str, int length);
 
+/**
+ * Convert an integer to a char*
+ * @param number The integer to convert
+ * @param strBuf The string buffer to store the converted integer
+ * @returns The string buffer
+ */
 char* int_to_char(int number, char *strBuf)
 {
     return int_to_char_b(number, strBuf, 10);
 }
 
+/**
+ * Convert an integer to a char*
+ * @param number The integer to convert
+ * @param strBuf The string buffer to store the converted integer
+ * @param base The base of the integer
+ * @returns The string buffer
+ */
 char* int_to_char_b(int number, char *strBuf, int base)
 {
     int i = 0;
-    int isNegative = 0;
+    bool isNegative = false;
 
     // Handle 0 to avoid empty string
     if (number == 0)
@@ -28,7 +43,7 @@ char* int_to_char_b(int number, char *strBuf, int base)
     // Only process negative numbers for base 10
     if (number < 0 && base == 10)
     {
-        isNegative = 1;
+        isNegative = true;
         number = -number;
     }
 

@@ -6,15 +6,6 @@
 #include "include/screen.h"
 #include "include/ports.h"
 
-// Declare private helper functions
-void set_cursor_offset(int offset);
-int get_cursor_offset(void);
-int get_offset(int column, int row);
-int get_offset_row(int offset);
-int get_offset_column(int offset);
-int print_char(char c, int column, int row, char attr);
-char attr_convert(char background, char foreground);
-
 /**
  * Helps to print characters, does most of the barebones work
  * like directly accessing video memory.
@@ -123,16 +114,32 @@ void set_cursor_offset(int offset)
     write_byte_to_port(VGA_SCREEN_DATA_REGISTER, (cursorPosition & 0xFF));
 }
 
+/**
+ * Get offset
+ * @param column The column position
+ * @param row The row position
+ * @returns the offset
+ */
 int get_offset(int column, int row)
 {
     return 2 * (row * MAX_COLS + column);
 }
 
+/**
+ * Get the offset for a row
+ * @param offser The offset
+ * @return Row offset
+ */
 int get_offset_row(int offset)
 {
     return offset / (2 * MAX_COLS);
 }
 
+/**
+ * Get the offset for a column
+ * @param offset The offset
+ * @returns Column offset
+ */
 int get_offset_column(int offset)
 {
     return (offset - (get_offset_row(offset) * 2 * MAX_COLS)) / 2;

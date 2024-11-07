@@ -3,6 +3,9 @@
  * Basic Operating System, Standard Colour Definitions
  */
 
+#ifndef _STDCOLOUR_H
+#define _STDCOLOUR_H
+
 #define COLOUR_BLACK 0x0
 #define COLOUR_BLUE 0x1
 #define COLOUR_GREEN 0x2
@@ -19,3 +22,5 @@
 #define COLOUR_LIGHT_PURPLE 0xD
 #define COLOUR_LIGHT_YELLOW 0xE
 #define COLOUR_BRIGHT_WHITE 0xF
+
+#endif

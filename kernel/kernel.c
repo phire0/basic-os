@@ -17,9 +17,9 @@ void kernel_entry(void)
 {
     clear_screen();
 
-    int myNum = 69;
+    int myNum = 67;
     char buff[10];
-    int_to_char_b(myNum, buff, 10);
+    int_to_char(myNum, buff);
 
     kprint(int_to_char_b(myNum, buff, 10));
 

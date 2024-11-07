@@ -3,6 +3,9 @@
  * Basic Operating System, Port In/Out
  */
 
+#ifndef _DRIVER_PORTS_H
+#define _DRIVER_PORTS_H
+
 /**
  * Read a byte of data from the specified port
  * @param port The port to read from
@@ -16,3 +19,5 @@ unsigned char read_byte_from_port(unsigned short port);
  * @param data The data to write to the given port
  */
 void write_byte_to_port(unsigned short port, unsigned char data);
+
+#endif

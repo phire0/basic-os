@@ -3,6 +3,9 @@
  * Basic Operating System, Standard Input/Output
  */
 
+#ifndef _STDIO_H
+#define _STDIO_H
+
 /**
  * Clear all contents from the screen
  */
@@ -15,8 +18,9 @@ void clear_screen(void);
 void kprint(char *str);
 
 /**
- * Print a givem message using format modifiers
- * 
+ * Print a given message using format modifiers
+ * @param str The string to print
+ * @param varargs Variable number of format specifiers
  */
 void kprint_f(char *str, ...);
 
@@ -45,3 +49,5 @@ void kprint_la(char *str, int column, int row, char attr);
  * @return The proper hex value with the chosen attributes
  */
 char pre_kprint_attr(char background, char foreground);
+
+#endif
