@@ -3,30 +3,71 @@
  * Basic Operating System, Primary Kernel Functions
  */
 
-#include "../drivers/screen.h"
+#include "../stdlib/include/stdutils.h"
+#include "../stdlib/include/stdio.h"
+#include "../stdlib/include/stdcolour.h"
 
-void print_test();
+void print_test(void);
+
 
 /**
  * KERNEL ENTRY POINT
  */
 void kernel_entry(void)
 {
-    print_test();
+    clear_screen();
+
+    int myNum = 69;
+    char buff[10];
+    int_to_char_b(myNum, buff, 10);
+
+    kprint(int_to_char_b(myNum, buff, 10));
+
+    //kprint_f("a", "b");
+    //kprint_f(64, 32, 16);
+    //print_test();
 }
 
-void print_test()
+void print_test(void)
 {
     clear_screen();
-    kprint("Top Left Text");
-    kprint_at("Top Right Text", 66, 0, 0);
-    kprint_at("This contains a\nline break!", 30, 5, 0);
-    kprint_at("What happens when we run out of space?", 45, 24, 0);
-    kprint_at("Hello, World! :)", 30, 10, kprint_attr(COLOUR_LIGHT_RED, COLOUR_BLACK));
-    kprint_at("Hello, World! :)", 30, 11, kprint_attr(COLOUR_YELLOW, COLOUR_BLACK));
-    kprint_at("Hello, World! :)", 30, 12, kprint_attr(COLOUR_LIGHT_YELLOW, COLOUR_BLACK));
-    kprint_at("Hello, World! :)", 30, 13, kprint_attr(COLOUR_LIGHT_GREEN, COLOUR_BLACK));
-    kprint_at("Hello, World! :)", 30, 14, kprint_attr(COLOUR_LIGHT_AQUA, COLOUR_BLACK));
-    kprint_at("Hello, World! :)", 30, 15, kprint_attr(COLOUR_LIGHT_BLUE, COLOUR_BLACK));
-    kprint_at("Hello, World! :)", 30, 16, kprint_attr(COLOUR_LIGHT_PURPLE, COLOUR_BLACK));
+
+    kprint_l("Welcome to the kernel.", 29, 3);
+
+    // Top Left Colour Sample
+    kprint_la("  ", 0, 0, 0x00);
+    kprint_la("  ", 2, 0, 0x10);
+    kprint_la("  ", 4, 0, 0x20);
+    kprint_la("  ", 6, 0, 0x30);
+    kprint_la("  ", 0, 1, 0x40);
+    kprint_la("  ", 2, 1, 0x50);
+    kprint_la("  ", 4, 1, 0x60);
+    kprint_la("  ", 6, 1, 0x70);
+    kprint_la("  ", 0, 2, 0x80);
+    kprint_la("  ", 2, 2, 0x90);
+    kprint_la("  ", 4, 2, 0xA0);
+    kprint_la("  ", 6, 2, 0xB0);
+    kprint_la("  ", 0, 3, 0xC0);
+    kprint_la("  ", 2, 3, 0xD0);
+    kprint_la("  ", 4, 3, 0xE0);
+    kprint_la("  ", 6, 3, 0xF0);
+
+    // Top Right Alphabet Sample
+    kprint_la("ABCDEFGH", 72, 0, 0x0F);
+    kprint_la("IJKLMNOP", 72, 1, 0x0F);
+    kprint_la("QRSTUVWX", 72, 2, 0x0F);
+    kprint_la("YZabcdef", 72, 3, 0x0F);
+    kprint_la("ghijklmn", 72, 4, 0x0F);
+    kprint_la("opqrstuv", 72, 5, 0x0F);
+    kprint_la("wxyz0123", 72, 6, 0x0F);
+    kprint_la("456789", 74, 7, 0x0F);
+
+    // Pretty hello world message
+    kprint_la(" Hello, World! :) ", 31, 9, pre_kprint_attr(COLOUR_LIGHT_RED, COLOUR_BLACK));
+    kprint_la(" Hello, World! :) ", 31, 10, pre_kprint_attr(COLOUR_YELLOW, COLOUR_BLACK));
+    kprint_la(" Hello, World! :) ", 31, 11, pre_kprint_attr(COLOUR_LIGHT_YELLOW, COLOUR_BLACK));
+    kprint_la(" Hello, World! :) ", 31, 12, pre_kprint_attr(COLOUR_LIGHT_GREEN, COLOUR_BLACK));
+    kprint_la(" Hello, World! :) ", 31, 13, pre_kprint_attr(COLOUR_LIGHT_AQUA, COLOUR_BLACK));
+    kprint_la(" Hello, World! :) ", 31, 14, pre_kprint_attr(COLOUR_LIGHT_BLUE, COLOUR_BLACK));
+    kprint_la(" Hello, World! :) ", 31, 15, pre_kprint_attr(COLOUR_LIGHT_PURPLE, COLOUR_BLACK));
 }

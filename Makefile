@@ -1,5 +1,5 @@
-C_SOURCES = $(wildcard kernel/*.c drivers/*.c)
-HEADERS = $(wildcard kernel/*.h drivers/*.h)
+C_SOURCES = $(wildcard kernel/*.c drivers/*.c stdlib/*.c)
+HEADERS = $(wildcard kernel/*.h drivers/*.h stdlib/*.h)
 
 # Nice syntax for file extension replacement
 OBJ = ${C_SOURCES:.c=.o}
@@ -9,7 +9,7 @@ CC = /opt/homebrew/bin/x86_64-elf-gcc
 GDB = /opt/homebrew/bin/x86_64-elf-gdb
 
 # -g: Use debugging symbols in gcc
-CFLAGS = -g
+CFLAGS = -g -Wstrict-prototypes -Wextra -Wall -Wundef -Wshadow -Wunreachable-code
 
 # First rule is run by default
 os-image.bin: boot/boot.bin kernel.bin
@@ -48,4 +48,4 @@ debug: os-image.bin kernel.elf
 
 clean:
 	rm -rf *.bin *.dis *.o os-image.bin *.elf
-	rm -rf kernel/*.o boot/*.bin drivers/*.o boot/*.o
+	rm -rf kernel/*.o boot/*.bin drivers/*.o boot/*.o stdlib/*.o

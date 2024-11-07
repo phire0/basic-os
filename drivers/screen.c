@@ -3,99 +3,17 @@
  * Basic Operating System, Kernel Screen Management
  */
 
-#include "screen.h"
-#include "ports.h"
+#include "include/screen.h"
+#include "include/ports.h"
 
 // Declare private helper functions
 void set_cursor_offset(int offset);
-int get_cursor_offset();
+int get_cursor_offset(void);
 int get_offset(int column, int row);
 int get_offset_row(int offset);
 int get_offset_column(int offset);
 int print_char(char c, int column, int row, char attr);
-
-/****************************************************
- * Public Kernel Screen API Functions
- ****************************************************/
-
-/**
- * Clear all contents from the screen
- */
-void clear_screen()
-{
-    unsigned char *vgaBaseAddy = (unsigned char*) VIDEO_BASE_ADDRESS;
-    int screenSize = MAX_COLS * MAX_ROWS;
-
-    for (int i = 0; i < screenSize; i++)
-    {
-        vgaBaseAddy[i * 2] = ' ';
-        vgaBaseAddy[i * 2 + 1] = kprint_attr(COLOUR_BLACK, COLOUR_BRIGHT_WHITE);
-    }
-
-    set_cursor_offset(get_offset(0, 0));
-}
-
-/**
- * Print a given message
- * @param str The string to print
- */
-void kprint(char *str)
-{
-    kprint_at(str, -1, -1, 0);
-}
-
-/**
- * Print a given message at the specified location
- * @param str The string to print
- * @param column Column output location
- * @param row Row output location
- */
-void kprint_at(char *str, int column, int row, char attr)
-{
-    int offset;
-
-    // Get cursor offset
-    if (column >= 0 && row >= 0)
-    {
-        offset = get_offset(column, row);
-    }
-    else
-    {
-        // column/row param is negative
-        // so get offset and figure out column/row
-        offset = get_cursor_offset();
-
-        column = get_offset_column(offset);
-        row = get_offset_row(offset);
-    }
-
-    // Iterate through string and print it
-    int i = 0;
-    while (str[i] != 0)
-    {
-        offset = print_char(str[i++], column, row, attr);
-
-        // Update column/row for next iteration
-        column = get_offset_column(offset);
-        row = get_offset_row(offset);
-    }
-}
-
-/**
- * Quickly convert specified background/foreground colour values
- * into valid attr value for krpint_at
- * @param background the background colour, hex 0 to F or use colour defined in screen.h
- * @param foreground the foreground colour, hex 0 to F or use colour defined in screen.h
- * @return The proper hex value with the chosen attributes
- */
-char kprint_attr(char background, char foreground)
-{
-    return (background << 4) | foreground;
-}
-
-/****************************************************
- * Private Helper Functions
- ****************************************************/
+char attr_convert(char background, char foreground);
 
 /**
  * Helps to print characters, does most of the barebones work
@@ -119,14 +37,14 @@ int print_char(char c, int column, int row, char attr)
     // TODO: Implement additional options.
     if (!attr || attr == 0)
     {
-        attr = kprint_attr(COLOUR_BLACK, COLOUR_BRIGHT_WHITE);
+        attr = 0x0F;
     }
 
     // Error Handling, print red 'E' if coordinates are incorrect.
     if (column >= MAX_COLS || row >= MAX_ROWS)
     {
         vgaBaseAddy[2 * MAX_COLS * MAX_ROWS - 2] = 'E';
-        vgaBaseAddy[2 * MAX_COLS * MAX_ROWS - 2] = kprint_attr(COLOUR_BRIGHT_WHITE, COLOUR_RED);
+        vgaBaseAddy[2 * MAX_COLS * MAX_ROWS - 2] = 0xFC;
         return get_offset(column, row);
     }
 
@@ -166,7 +84,7 @@ int print_char(char c, int column, int row, char attr)
  * Get the cursor offset
  * @returns The cursor offset
  */
-int get_cursor_offset()
+int get_cursor_offset(void)
 {
     // Store cursor position
     int cursorPosition = -1;
