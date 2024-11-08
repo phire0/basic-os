@@ -6,6 +6,7 @@
 #include "../stdlib/include/stdcolour.h"
 #include "../stdlib/include/stdint.h"
 #include "../stdlib/include/stdio.h"
+#include "../stdlib/include/stdtime.h"
 #include "../stdlib/include/stdutils.h"
 
 #include "../drivers/include/ports.h"
@@ -13,25 +14,30 @@
 
 void print_test(void);
 
-
 /**
  * KERNEL ENTRY POINT
  */
 void kernel_entry(void)
 {
     clear_screen();
+    print_test();
 
-    uint8_t hour = clock_r(CMOS_CLOCK_HOURS);
-    uint8_t minutes = clock_r(CMOS_CLOCK_MINUTES);
-    uint8_t seconds = clock_r(CMOS_CLOCK_SECONDS);
+    time_t *startupTime = get_current_timestamp();
 
     char strBuf[4];
-    kprint("The time is: ");
-    kprint(int_to_char(hour, strBuf));
+
+    kprint_l("Boot Time: ", 0, 0);
+    kprint(int_to_char(startupTime->day_of_month, strBuf));
+    kprint("-");
+    kprint(int_to_char(startupTime->month, strBuf));
+    kprint("-");
+    kprint(int_to_char(startupTime->year, strBuf));
+    kprint(" ");
+    kprint(int_to_char(startupTime->hours, strBuf));
     kprint(":");
-    kprint(int_to_char(minutes, strBuf));
+    kprint(int_to_char(startupTime->minutes, strBuf));
     kprint(":");
-    kprint(int_to_char(seconds, strBuf));
+    kprint(int_to_char(startupTime->seconds, strBuf));
 }
 
 void print_test(void)
@@ -41,22 +47,22 @@ void print_test(void)
     kprint_l("Welcome to the kernel.", 29, 3);
 
     // Top Left Colour Sample
-    kprint_la("  ", 0, 0, 0x00);
-    kprint_la("  ", 2, 0, 0x10);
-    kprint_la("  ", 4, 0, 0x20);
-    kprint_la("  ", 6, 0, 0x30);
-    kprint_la("  ", 0, 1, 0x40);
-    kprint_la("  ", 2, 1, 0x50);
-    kprint_la("  ", 4, 1, 0x60);
-    kprint_la("  ", 6, 1, 0x70);
-    kprint_la("  ", 0, 2, 0x80);
-    kprint_la("  ", 2, 2, 0x90);
-    kprint_la("  ", 4, 2, 0xA0);
-    kprint_la("  ", 6, 2, 0xB0);
-    kprint_la("  ", 0, 3, 0xC0);
-    kprint_la("  ", 2, 3, 0xD0);
-    kprint_la("  ", 4, 3, 0xE0);
-    kprint_la("  ", 6, 3, 0xF0);
+    kprint_la("  ", 0, 3, 0x00);
+    kprint_la("  ", 2, 3, 0x10);
+    kprint_la("  ", 4, 3, 0x20);
+    kprint_la("  ", 6, 3, 0x30);
+    kprint_la("  ", 0, 4, 0x40);
+    kprint_la("  ", 2, 4, 0x50);
+    kprint_la("  ", 4, 4, 0x60);
+    kprint_la("  ", 6, 4, 0x70);
+    kprint_la("  ", 0, 5, 0x80);
+    kprint_la("  ", 2, 5, 0x90);
+    kprint_la("  ", 4, 5, 0xA0);
+    kprint_la("  ", 6, 5, 0xB0);
+    kprint_la("  ", 0, 6, 0xC0);
+    kprint_la("  ", 2, 6, 0xD0);
+    kprint_la("  ", 4, 6, 0xE0);
+    kprint_la("  ", 6, 6, 0xF0);
 
     // Top Right Alphabet Sample
     kprint_la("ABCDEFGH", 72, 0, 0x0F);

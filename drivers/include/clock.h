@@ -23,6 +23,7 @@
 
 #define CMOS_CLOCK_DAY_WEEK 0x06 // 1-7, Sunday = 1
 #define CMOS_CLOCK_DAY_MONTH 0x07 // 1-31
+#define CMOS_CLOCK_MONTH 0x08
 #define CMOS_CLOCK_YEAR 0x09
 
 /**
