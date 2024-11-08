@@ -1,5 +1,5 @@
 /**
- * stdutils.h
+ * stdutils.c
  * Basic Operating System, Standard Utilities
  */
 

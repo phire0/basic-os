@@ -1,5 +1,5 @@
 /**
- * screen.c
+ * screen.h
  * Basic Operating System, Kernel Screen Management
  */
 

@@ -3,8 +3,9 @@
  * Basic Operating System, Standard Input/Output
  */
 
-#include "include/stdio.h"
+#include "include/stdargs.h"
 #include "include/stdcolour.h"
+#include "include/stdio.h"
 
 #include "../drivers/include/screen.h"
 
@@ -36,7 +37,22 @@ void kprint(char *str)
 
 void kprint_f(char *str, ...)
 {
+    va_list args;
+    va_start(args, str);
+
+    // Will need some sort of string replace function?
+    // or reimplement like kprint_la
+
     kprint(str);
+    kprint("\n");
+    kprint(va_arg(args, char*));
+    kprint("\n");
+    kprint(va_arg(args, char*));
+    kprint("\n");
+    kprint(va_arg(args, char*));
+    kprint("\n");
+
+    va_end(args);
 }
 
 /**

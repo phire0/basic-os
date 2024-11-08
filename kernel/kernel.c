@@ -3,9 +3,13 @@
  * Basic Operating System, Primary Kernel Functions
  */
 
-#include "../stdlib/include/stdutils.h"
-#include "../stdlib/include/stdio.h"
 #include "../stdlib/include/stdcolour.h"
+#include "../stdlib/include/stdint.h"
+#include "../stdlib/include/stdio.h"
+#include "../stdlib/include/stdutils.h"
+
+#include "../drivers/include/ports.h"
+#include "../drivers/include/clock.h"
 
 void print_test(void);
 
@@ -17,15 +21,17 @@ void kernel_entry(void)
 {
     clear_screen();
 
-    int myNum = 67;
-    char buff[10];
-    int_to_char(myNum, buff);
+    uint8_t hour = clock_r(CMOS_CLOCK_HOURS);
+    uint8_t minutes = clock_r(CMOS_CLOCK_MINUTES);
+    uint8_t seconds = clock_r(CMOS_CLOCK_SECONDS);
 
-    kprint(int_to_char_b(myNum, buff, 10));
-
-    //kprint_f("a", "b");
-    //kprint_f(64, 32, 16);
-    //print_test();
+    char strBuf[4];
+    kprint("The time is: ");
+    kprint(int_to_char(hour, strBuf));
+    kprint(":");
+    kprint(int_to_char(minutes, strBuf));
+    kprint(":");
+    kprint(int_to_char(seconds, strBuf));
 }
 
 void print_test(void)
