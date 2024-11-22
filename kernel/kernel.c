@@ -7,12 +7,14 @@
 #include "../stdlib/include/stdint.h"
 #include "../stdlib/include/stdio.h"
 #include "../stdlib/include/stdtime.h"
+#include "../stdlib/include/stdstring.h"
 #include "../stdlib/include/stdutils.h"
 
 #include "../drivers/include/ports.h"
 #include "../drivers/include/clock.h"
 
 void print_test(void);
+void clock_test(void);
 
 /**
  * KERNEL ENTRY POINT
@@ -20,13 +22,17 @@ void print_test(void);
 void kernel_entry(void)
 {
     clear_screen();
+    clock_test();
     print_test();
+}
 
+void clock_test(void)
+{
     time_t *startupTime = get_current_timestamp();
-
     char strBuf[4];
 
     kprint_l("Boot Time: ", 0, 0);
+
     kprint(int_to_char(startupTime->day_of_month, strBuf));
     kprint("-");
     kprint(int_to_char(startupTime->month, strBuf));
@@ -42,8 +48,6 @@ void kernel_entry(void)
 
 void print_test(void)
 {
-    clear_screen();
-
     kprint_l("Welcome to the kernel.", 29, 3);
 
     // Top Left Colour Sample
