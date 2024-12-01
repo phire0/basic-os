@@ -30,7 +30,7 @@
  * Read from the CMOS clock using an appropriate CMOS register,
  * preferably defined within clock.h
  * @param c_register The CMOS RTC register to read from
- * @returns The data at the provided register
+ * @return The data at the provided register
  */
 uint8_t clock_r(uint8_t c_register);
 

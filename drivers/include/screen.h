@@ -44,7 +44,7 @@ void set_cursor_offset(int offset);
 
 /**
  * Get the cursor offset
- * @returns The cursor offset
+ * @return The cursor offset
  */
 int get_cursor_offset(void);
 
@@ -52,21 +52,21 @@ int get_cursor_offset(void);
  * Get offset
  * @param column The column position
  * @param row The row position
- * @returns the offset
+ * @return the offset
  */
 int get_offset(int column, int row);
 
 /**
  * Get the offset for a row
  * @param offset The offset
- * @returns Row offset
+ * @return Row offset
  */
 int get_offset_row(int offset);
 
 /**
  * Get the offset for a column
  * @param offset The offset
- * @returns Column offset
+ * @return Column offset
  */
 int get_offset_column(int offset);
 

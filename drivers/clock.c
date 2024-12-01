@@ -17,7 +17,7 @@ uint8_t decode_bcd(uint8_t bcd);
  * Read from the CMOS clock using an appropriate CMOS register,
  * preferably defined within clock.h
  * @param The CMOS RTC register to read from
- * @returns The data at the provided register
+ * @return The data at the provided register
  */
 uint8_t clock_r(uint8_t c_register)
 {

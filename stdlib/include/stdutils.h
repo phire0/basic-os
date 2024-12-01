@@ -10,7 +10,7 @@
  * Convert an integer to a char*
  * @param number The integer to convert
  * @param strBuf The string buffer to store the converted integer
- * @returns The string buffer
+ * @return The string buffer
  */
 char* int_to_char(int number, char *strBuf); 
 
@@ -19,7 +19,7 @@ char* int_to_char(int number, char *strBuf);
  * @param number The integer to convert
  * @param strBuf The string buffer to store the converted integer
  * @param base The base of the integer
- * @returns The string buffer
+ * @return The string buffer
  */
 char* int_to_char_b(int number, char *strBuf, int base); 
 
